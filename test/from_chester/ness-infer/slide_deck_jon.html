@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>An introduction to R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr. Jonathan Leslie   Head of Data Science at Pivigo      jonleslie     @jlesliedata    jonathan.leslie@pivigo.com" />
+    <script src="https://use.fontawesome.com/5235085b15.js"></script>
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# An introduction to R
+### Dr. Jonathan Leslie <br> Head of Data Science at <a href="https://www.pivigo.com/">Pivigo</a> <br><br> <a href="https://github.com/jonleslie"><i class="fa fa-github fa-fw"></i>  jonleslie</a><br> <a href="https://twitter.com/jlesliedata"> <i class="fa fa-twitter fa-fw"></i>  <span class="citation">@jlesliedata</span></a><br> <a href="mailto:jonathan.leslie@pivigo.com"><i class="fa fa-paper-plane fa-fw"></i>  jonathan.leslie@pivigo.com</a><br>
+### 2018-08-15 <br>Science to Data Science - London 2018<br><br>
+
+---
+
+
+class: inverse
+name: toc
+
+
+
+
+
+
+# Table of Contents
+
+Part 1
+- [Why R?](#whyR)
+- [A tour of RStudio](#tour)
+- [Getting started with R](#getting_started)
+- [Data wrangling](#wrangling)
+
+Part 2
+- [Data visualization](#viz)
+- [Data tidying](#tidying)
+- [Exploratory data analysis](#eda)
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+name: whyR
+
+# Why R?
+
+- Open source
+- Powerful statistics
+- Outstanding for plotting
+- Shiny dashboards
+- Community
+
+---
+
+layout: true
+class: inverse
+
+---
+
+## Acknowledgement
+
+Dr. Chester Ismay &lt;br&gt; Senior Curriculum Lead at &lt;a href="https://www.datacamp.com/"&gt;DataCamp&lt;/a&gt; &lt;br&gt;&lt;br&gt; &lt;a href="http://github.com/ismayc"&gt;&lt;i class="fa fa-github fa-fw"&gt;&lt;/i&gt;&amp;nbsp; ismayc&lt;/a&gt;&lt;br&gt; &lt;a href="http://twitter.com/old_man_chester"&gt; &lt;i class="fa fa-twitter fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @old_man_chester&lt;/a&gt;&lt;br&gt; &lt;a href="mailto:chester@datacamp.com"&gt;&lt;i class="fa fa-paper-plane fa-fw"&gt;&lt;/i&gt;&amp;nbsp; chester@datacamp.com&lt;/a&gt;&lt;br&gt;
+  
+.footer[Slides available at http://bit.ly/ness-infer &amp;emsp; &amp;emsp; &amp;emsp; ]
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+
+class: normal, center, middle
+
+## \#rstats
+
+&lt;img src="img/twitter.jpg" style="width: 40%; center" /&gt;
+
+---
+
+class: normal, center, middle
+
+## R4DS learning community
+
+&lt;img src="img/r4ds.png" style="center" /&gt;
+
+---
+
+class: normal, center
+name: tour
+
+# A tour of RStudio
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/2-getting-started.html"&gt;
+&lt;img src="img/engine.png" style = "width: 600px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+## Designed for the novice / Nice for the practioner
+
+&lt;center&gt;
+&lt;a href="http://moderndive.netlify.com/2-getting-started.html"&gt;
+&lt;img src="img/appstore.png" style = "width: 620px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+class: normal, center, middle
+GO TO RSTUDIO
+
+---
+
+## Prior Installation
+
+Make sure you have the (current) up-to-date R, RStudio, and R packages
+- [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+
+***
+
+- [R (version 3.4.4)](https://cran.r-project.org/)
+- [RStudio (version 1.1.442)](https://www.rstudio.com/products/rstudio/download3/)
+
+- Run this in the RStudio Console
+
+
+```r
+pkgs &lt;- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+
+install.packages(pkgs)
+remotes::install_github("andrewpbray/infer")
+```
+
+---
+
+## R for Data Science
+
+&lt;img src="img/r4ds_book_cover.png" style="width: 40%; float: right" /&gt;
+
+- [Link for the book is here](http://r4ds.had.co.nz/)
+
+---
+
+## Freely available information
+
+&lt;center&gt;
+&lt;a href="http://moderndive.com"&gt;
+&lt;img src="img/wide_format.png" style = "width: 650px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+&lt;center&gt;&lt;h2&gt;A Modern Dive into Data with R&lt;/h2&gt;&lt;/center&gt;
+
+* Webpage: &lt;http://moderndive.com&gt;
+* Developmental version at &lt;https://moderndive.netlify.com&gt;
+* [GitHub Repo](https://github.com/moderndive/moderndiver-book)
+* Please [signup](http://eepurl.com/cBkItf) for our mailing list!
+
+---
+
+layout: true
+class: inverse
+.footer[[Return to Table of Contents](#toc)]
+
+---
+
+name: getting_started
+
+# Getting started with R
+
+---
+
+class: normal, center, middle
+
+# R Data Types
+
+---
+
+## The bare minimum needed for understanding today
+
+Vector/variable
+  - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
+
+--
+
+Data frame
+  - Vectors of (potentially) different types
+  - Each vector has the same number of rows
+
+---
+
+## The bare minimum needed for understanding today
+
+
+```r
+library(tibble)
+library(lubridate)
+ex1 &lt;- data_frame(
+    vec1 = c(1980, 1990, 2000, 2010),
+    vec2 = c(1L, 2L, 3L, 4L),
+    vec3 = c("low", "low", "high", "high"),
+    vec4 = c(TRUE, FALSE, FALSE, FALSE),
+    vec5 = ymd(c("2017-05-23", "1776/07/04", 
+                 "1983-05/31", "1908/04-01"))
+  )
+ex1
+```
+
+--
+
+
+```
+# A tibble: 4 x 5
+   vec1  vec2 vec3  vec4  vec5      
+  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;lgl&gt; &lt;date&gt;    
+1  1980     1 low   TRUE  2017-05-23
+2  1990     2 low   FALSE 1776-07-04
+3  2000     3 high  FALSE 1983-05-31
+4  2010     4 high  FALSE 1908-04-01
+```
+  
+---
+
+class: center, middle  
+  
+# Welcome to the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/)!
+  
+The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. &lt;br&gt;&lt;br&gt; 
+  
+&lt;a href="http://tidyverse.tidyverse.org/logo.png"&gt;&lt;img src="figure/tidyverse.png" style="width: 200px;"/&gt;&lt;/a&gt;
+
+---
+
+# First motivating example for today
+
+&lt;a href="http://gitsense.github.io/images/wealth.gif"&gt;&lt;img src="figure/wealth.gif" style="width: 700px;"/&gt;&lt;/a&gt;
+
+- Inspired by the late, great [Hans Rosling](https://www.youtube.com/watch?v=jbkSRLYSojo)
+
+
+---
+
+layout: false
+class: center, middle
+name: wrangling
+
+# Data Wrangling
+
+&lt;center&gt;
+&lt;a href="https://dplyr.tidyverse.org"&gt;
+&lt;img src="img/dplyr_hex.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+
+## The [`gapminder` package](https://github.com/jennybc/gapminder)
+
+
+```r
+library(gapminder)
+gapminder
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+```
+
+
+---
+
+## Base R versus the `tidyverse`
+
+- The mean life expectancy across all years for Asia
+--
+
+
+```r
+# Base R
+asia &lt;- gapminder[gapminder$continent == "Asia", ]
+mean(asia$lifeExp)
+```
+
+```
+[1] 60.065
+```
+--
+ 
+
+```r
+library(dplyr)
+gapminder %&gt;% filter(continent == "Asia") %&gt;%
+  summarize(mean_exp = mean(lifeExp))
+```
+
+
+```
+[1] 60.065
+```
+
+
+---
+
+## The pipe `%&gt;%`
+
+&lt;img src="figure/pipe.png" style="width: 240px;"/&gt; &amp;emsp; &amp;emsp; &amp;emsp; &lt;img src="figure/MagrittePipe.jpg" style="width: 300px;"/&gt;
+--
+
+- A way to chain together commands
+- Can be read as "and then" when reading over code
+--
+
+
+```r
+library(dplyr)
+gapminder %&gt;% filter(continent == "Asia") %&gt;%
+  summarize(mean_exp = mean(lifeExp))
+```
+
+---
+
+name: fivemv
+
+# [The Five Main Verbs (5MV)](http://moderndive.com/5-wrangling.html) of data wrangling
+
+- [`filter()`](#filter) 
+- [`summarize()`](#summarize)
+- [`group_by()`](#groupby)
+- [`mutate()`](#mutate) 
+- [`arrange()`](#arrange)
+
+---
+
+name: filter
+
+## `filter()`
+
+- Select a subset of the rows of a data frame. 
+
+- Arguments are "filters" that you'd like to apply.
+--
+
+
+```r
+library(gapminder); library(dplyr)
+gap_2007 &lt;- gapminder %&gt;% filter(year == 2007)
+head(gap_2007, 4)
+```
+
+```
+# A tibble: 4 x 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Afghanistan Asia       2007    43.8 31889923      975.
+2 Albania     Europe     2007    76.4  3600523     5937.
+3 Algeria     Africa     2007    72.3 33333216     6223.
+4 Angola      Africa     2007    42.7 12420476     4797.
+```
+
+- Use `==` to compare a variable to a value
+
+---
+
+## Logical operators
+
+- Use `|` to check for any in multiple filters being true:
+--
+
+
+```r
+gapminder %&gt;% 
+  filter(year == 2002 | continent == "Asia") %&gt;% 
+  sample_n(8)
+```
+--
+
+
+```
+# A tibble: 8 x 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Iraq        Asia       1997    58.8 20775703     3076.
+2 Korea, Rep. Asia       1997    74.6 46173816    15994.
+3 Bangladesh  Asia       1952    37.5 46886859      684.
+4 France      Europe     2002    79.6 59925035    28926.
+5 Kuwait      Asia       1957    58.0   212846   113523.
+6 Iran        Asia       1962    49.3 22874000     4187.
+7 Myanmar     Asia       1982    58.1 34680442      424 
+8 Canada      Americas   2002    79.8 31902268    33329.
+```
+
+---
+
+## Logical operators
+
+- Use `,` to check for all of multiple filters being true:
+--
+
+
+```r
+gapminder %&gt;% 
+  filter(year == 2002, continent == "Asia")
+```
+
+
+```
+# A tibble: 8 x 6
+  country          continent  year lifeExp        pop gdpPercap
+  &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;      &lt;int&gt;     &lt;dbl&gt;
+1 Afghanistan      Asia       2002    42.1   25268405      727.
+2 Bahrain          Asia       2002    74.8     656397    23404.
+3 Bangladesh       Asia       2002    62.0  135656790     1136.
+4 Cambodia         Asia       2002    56.8   12926707      896.
+5 China            Asia       2002    72.0 1280400000     3119.
+6 Hong Kong, China Asia       2002    81.5    6762476    30209.
+7 India            Asia       2002    62.9 1034172547     1747.
+8 Indonesia        Asia       2002    68.6  211060000     2874.
+```
+
+---
+
+## Logical operators
+
+- Use `%in%` to check for any being true &lt;br&gt; (shortcut to using `|` repeatedly with `==`)
+--
+
+
+```r
+gapminder %&gt;% 
+  filter(country %in% c("Argentina", "Belgium", "Mexico"),
+         year %in% c(1987, 1992))
+```
+--
+
+
+```
+# A tibble: 6 x 6
+  country   continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Argentina Americas   1987    70.8 31620918     9140.
+2 Argentina Americas   1992    71.9 33958947     9308.
+3 Belgium   Europe     1987    75.4  9870200    22526.
+4 Belgium   Europe     1992    76.5 10045622    25576.
+5 Mexico    Americas   1987    69.5 80122492     8688.
+6 Mexico    Americas   1992    71.5 88111030     9472.
+```
+
+
+---
+
+name: summarize
+
+## `summarize()`
+
+- Any numerical summary that you want to apply to a column of a data frame is specified within `summarize()`.
+
+
+```r
+stats_1997 &lt;- gapminder %&gt;% 
+  filter(year == 1997) %&gt;% 
+  summarize(max_exp = max(lifeExp),
+            sd_exp = sd(lifeExp))
+stats_1997
+```
+--
+
+
+```
+# A tibble: 1 x 2
+  max_exp sd_exp
+    &lt;dbl&gt;  &lt;dbl&gt;
+1    80.7   11.6
+```
+
+---
+
+name: groupby
+
+### Combining `summarize()` with `group_by()`
+
+When you'd like to determine a numerical summary for all
+levels of a different categorical variable
+
+
+```r
+max_exp_1997_by_cont &lt;- gapminder %&gt;% 
+  filter(year == 1997) %&gt;% 
+  group_by(continent) %&gt;%
+  summarize(max_exp = max(lifeExp),
+            sd_exp = sd(lifeExp))
+max_exp_1997_by_cont
+```
+
+--
+
+```
+# A tibble: 5 x 3
+  continent max_exp sd_exp
+  &lt;fct&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+1 Africa       74.8  9.10 
+2 Americas     78.6  4.89 
+3 Asia         80.7  8.09 
+4 Europe       79.4  3.10 
+5 Oceania      78.8  0.905
+```
+
+---
+
+name: mutate
+
+## `mutate()`
+
+- Allows you to 
+    1. &lt;font color="yellow"&gt;create a new variable with a specific value&lt;/font&gt; OR
+    2. create a new variable based on other variables OR
+    3. change the contents of an existing variable
+
+--
+
+
+```r
+gap_plus &lt;- gapminder %&gt;% mutate(just_one = 1)
+head(gap_plus, 4)
+```
+
+```
+# A tibble: 4 x 7
+  country     continent  year lifeExp      pop gdpPercap just_one
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 Afghanistan Asia       1952    28.8  8425333      779.        1
+2 Afghanistan Asia       1957    30.3  9240934      821.        1
+3 Afghanistan Asia       1962    32.0 10267083      853.        1
+4 Afghanistan Asia       1967    34.0 11537966      836.        1
+```
+
+---
+
+## `mutate()`
+
+- Allows you to 
+    1. create a new variable with a specific value OR
+    2. &lt;font color="yellow"&gt;create a new variable based on other variables&lt;/font&gt; OR
+    3. change the contents of an existing variable
+
+--
+
+
+
+
+
+```r
+gap_w_gdp &lt;- gapminder %&gt;% mutate(gdp = pop * gdpPercap)
+sample_n(gap_w_gdp, 4)
+```
+
+```
+# A tibble: 4 x 7
+  country   continent  year lifeExp      pop gdpPercap           gdp
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 Comoros   Africa     1967    46.5   217378     1876.    407807572.
+2 Paraguay  Americas   1992    68.2  4483945     4196.  18816476471.
+3 Mauritius Africa     1967    61.6   789309     2475.   1953845681.
+4 Chile     Americas   1997    75.8 14599929    10118. 147722858046.
+```
+
+---
+
+## `mutate()`
+
+- Allows you to 
+    1. create a new variable with a specific value OR
+    2. create a new variable based on other variables OR
+    3. &lt;font color="yellow"&gt;change the contents of an existing variable&lt;/font&gt;
+
+--
+
+
+```r
+gap_weird &lt;- gapminder %&gt;% mutate(pop = pop + 1000)
+head(gap_weird, 4)
+```
+
+```
+# A tibble: 4 x 6
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 Afghanistan Asia       1952    28.8  8426333      779.
+2 Afghanistan Asia       1957    30.3  9241934      821.
+3 Afghanistan Asia       1962    32.0 10268083      853.
+4 Afghanistan Asia       1967    34.0 11538966      836.
+```
+
+---
+
+name: arrange
+
+## `arrange()`
+
+- Reorders the rows in a data frame based on the values of one or more variables
+--
+
+
+```r
+gapminder %&gt;% arrange(year, country) %&gt;% head(10)
+```
+
+```
+# A tibble: 10 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Albania     Europe     1952    55.2  1282697     1601.
+ 3 Algeria     Africa     1952    43.1  9279525     2449.
+ 4 Angola      Africa     1952    30.0  4232095     3521.
+ 5 Argentina   Americas   1952    62.5 17876956     5911.
+ 6 Australia   Oceania    1952    69.1  8691212    10040.
+ 7 Austria     Europe     1952    66.8  6927772     6137.
+ 8 Bahrain     Asia       1952    50.9   120447     9867.
+ 9 Bangladesh  Asia       1952    37.5 46886859      684.
+10 Belgium     Europe     1952    68    8730405     8343.
+```
+
+---
+
+## `arrange()`
+
+- Can also put into descending order
+--
+
+
+```r
+gapminder %&gt;%
+  filter(year &gt; 2000) %&gt;%
+  arrange(desc(lifeExp)) %&gt;%
+  head(10)
+```
+
+```
+# A tibble: 10 x 6
+   country          continent  year lifeExp       pop gdpPercap
+   &lt;fct&gt;            &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
+ 1 Japan            Asia       2007    82.6 127467972    31656.
+ 2 Hong Kong, China Asia       2007    82.2   6980412    39725.
+ 3 Japan            Asia       2002    82   127065841    28605.
+ 4 Iceland          Europe     2007    81.8    301931    36181.
+ 5 Switzerland      Europe     2007    81.7   7554661    37506.
+ 6 Hong Kong, China Asia       2002    81.5   6762476    30209.
+ 7 Australia        Oceania    2007    81.2  20434176    34435.
+ 8 Spain            Europe     2007    80.9  40448191    28821.
+ 9 Sweden           Europe     2007    80.9   9031088    33860.
+10 Israel           Asia       2007    80.7   6426679    25523.
+```
+
+---
+
+## Don't mix up `arrange` and `group_by`
+
+- `group_by` is used (mostly) with `summarize` to calculate summaries over groups
+
+- `arrange` is used for sorting
+
+---
+
+## Don't mix up `arrange` and `group_by`
+
+This doesn't really do anything useful
+
+
+```r
+gapminder %&gt;% group_by(year)
+```
+
+```
+# A tibble: 1,704 x 6
+# Groups:   year [12]
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows
+```
+
+---
+
+## Don't mix up `arrange` and `group_by`
+
+But this does
+
+
+```r
+gapminder %&gt;% arrange(year)
+```
+
+```
+# A tibble: 1,704 x 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Albania     Europe     1952    55.2  1282697     1601.
+ 3 Algeria     Africa     1952    43.1  9279525     2449.
+ 4 Angola      Africa     1952    30.0  4232095     3521.
+ 5 Argentina   Americas   1952    62.5 17876956     5911.
+ 6 Australia   Oceania    1952    69.1  8691212    10040.
+ 7 Austria     Europe     1952    66.8  6927772     6137.
+ 8 Bahrain     Asia       1952    50.9   120447     9867.
+ 9 Bangladesh  Asia       1952    37.5 46886859      684.
+10 Belgium     Europe     1952    68    8730405     8343.
+# … with 1,694 more rows
+```
+
+---
+
+## Practice
+
+Use the [5MV](#fivemv) to answer problems from R data packages, e.g., [`nycflights13::weather`] 
+
+&lt;!--
+Lay out what the resulting table should look like on paper first.
+--&gt;
+
+1. What is the maximum arrival delay for each carrier departing JFK? [`nycflights13::flights`]
+
+2. Which carrier has the worst delays (mean arrival delay)?
+
+3. What airline corresponds to the "F9" carrier code? 
+Use [`nycflights13::airlines`]
+
+---
+
+## Challenge
+
+What is the following code doing?
+
+
+```r
+flights %&gt;% 
+  select(year:day, ends_with("delay")) %&gt;% 
+  group_by(year, month, day) %&gt;%
+  filter(rank(desc(arr_delay)) &lt; 10) 
+```
+
+---
+
+layout: false
+class: center, middle
+name: viz
+
+# Data Visualization
+
+&lt;center&gt;
+&lt;a href="https://ggplot2.tidyverse.org"&gt;
+&lt;img src="img/ggplot2_hex.png" style = "width: 400px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+&lt;img src="slide_deck_jon_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+
+- What are the variables here?
+- What is the observational unit?
+- How are the variables mapped to aesthetics?
+
+---
+
+class: center, middle
+
+## Grammar of Graphics
+
+Wilkinson (2005) laid out the proposed &lt;br&gt; "Grammar of Graphics"
+
+&lt;br&gt;
+
+&lt;a href="http://www.powells.com/book/the-grammar-of-graphics-9780387245447"&gt;&lt;img src="figure/graphics.jpg" style="width: 200px;"&gt;&lt;/a&gt;
+
+---
+
+class: center, middle
+
+## Grammar of Graphics in R
+
+Wickham implemented the grammar in R &lt;br&gt; in the `ggplot2` package
+
+&lt;br&gt;
+
+&lt;a href="http://www.powells.com/book/ggplot2-elegant-graphics-for-data-analysis-9783319242750/68-428"&gt;&lt;img src="figure/ggplot2.jpg" style="width: 200px;"&gt;&lt;/a&gt;
+
+---
+
+class: center, middle
+
+## Edward Tufte pioneered the field of data visualisation
+
+&lt;img src="img/Tufte_cover.jpg" style="width: 300; center" /&gt;
+
+---
+
+class: center, middle
+
+&lt;img src="img/Minard's_Map_(vectorized).png" syle="width:300px; center" /&gt;
+
+---
+
+class: center
+
+## Another recommendation:
+
+Online preview for [FUNDAMENTALS OF DATA VISUALISATION](https://serialmentor.com/dataviz/)
+Claus O. Wilke
+
+https://serialmentor.com/dataviz/
+
+---
+
+class: center, middle
+
+## What is a statistical graphic?
+
+--
+
+## A `mapping` of &lt;br&gt; `data` variables
+
+--
+
+## to &lt;br&gt; `aes()`thetic attributes
+
+--
+
+## of &lt;br&gt; `geom_`etric objects.
+
+---
+
+class: inverse, center, middle
+
+# Back to Basics
+
+---
+
+## Old school
+
+- Sketch the graphics below on paper, where the `x`-axis is variable `A` and the `y`-axis is variable `B`
+
+
+```
+# A tibble: 4 x 4
+      A     B     C D    
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+1  1980     1     3 cold 
+2  1990     2     2 cold 
+3  2000     3     1 hot  
+4  2010     4     2 hot  
+```
+
+&lt;!-- Copy to chalkboard/whiteboard --&gt;
+
+1. &lt;small&gt;A scatter plot&lt;/small&gt;
+1. &lt;small&gt;A scatter plot where the `color` of the points corresponds to `D`&lt;/small&gt;
+1. &lt;small&gt;A scatter plot where the `size` of the points corresponds to `C`&lt;/small&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+
+## Reproducing the plots in `ggplot2`
+
+### 1. A scatterplot
+
+
+```r
+library(ggplot2)
+ggplot(data = simple_ex, mapping = aes(x = A, y = B)) + 
+  geom_point()
+```
+--
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+
+
+---
+
+
+## Reproducing the plots in `ggplot2`
+
+### 2. A scatter plot where the `color` of the points corresponds to `D`
+
+
+```r
+library(ggplot2)
+ggplot(data = simple_ex, mapping = aes(x = A, y = B)) + 
+  geom_point(mapping = aes(color = D))
+```
+--
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+
+
+---
+
+## Reproducing the plots in `ggplot2`
+
+### 3. A scatter plot where the `size` of the points corresponds to `C`
+
+
+```r
+library(ggplot2)
+ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) + 
+  geom_point()
+```
+--
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
+---
+
+# Another example
+
+Do cars with bigger engines have lower fuel efficiency?
+
+
+```r
+mpg
+```
+
+```
+# A tibble: 234 x 11
+   manufacturer model displ  year   cyl trans drv     cty   hwy fl   
+   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;
+ 1 audi         a4      1.8  1999     4 auto… f        18    29 p    
+ 2 audi         a4      1.8  1999     4 manu… f        21    29 p    
+ 3 audi         a4      2    2008     4 manu… f        20    31 p    
+ 4 audi         a4      2    2008     4 auto… f        21    30 p    
+ 5 audi         a4      2.8  1999     6 auto… f        16    26 p    
+ 6 audi         a4      2.8  1999     6 manu… f        18    26 p    
+ 7 audi         a4      3.1  2008     6 auto… f        18    27 p    
+ 8 audi         a4 q…   1.8  1999     4 manu… 4        18    26 p    
+ 9 audi         a4 q…   1.8  1999     4 auto… 4        16    25 p    
+10 audi         a4 q…   2    2008     4 manu… 4        20    28 p    
+# … with 224 more rows, and 1 more variable: class &lt;chr&gt;
+```
+
+---
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+```
+ggplot(data = &lt;DATA&gt;) + 
+  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))
+```
+
+---
+
+## Exercises
+1. Run `ggplot(data = mpg)`. What do you see?
+
+2. How many rows are in mpg? How many columns?
+
+3. What does the `drv` variable describe? Read the help for `?mpg` to find out.
+
+4. Make a scatterplot of hwy vs cyl.
+
+1. What happens if you make a scatterplot of class vs drv? Why is the plot not useful?
+
+---
+
+# Aesthetic mapping
+
+- An aesthetic is a visual property of the objects in your plot.
+
+- Aesthetics include things like the size, the shape, or the color of your points.
+
+---
+
+## Mapping to colour
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+
+---
+
+## Mapping to shape
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+
+---
+
+## Mapping to size
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, size = class))
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+
+---
+
+# Facets
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+
+---
+
+# Geometric objects
+
+A geom is the geometrical object that a plot uses to represent data. 
+
+---
+
+## Same data, different `geom`s
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;![](slide_deck_jon_files/figure-html/unnamed-chunk-45-2.png)&lt;!-- --&gt;
+
+
+Exercise: try to create each of these plots
+
+(hint: use `geom_smooth` for plot on the right)
+
+---
+
+## Can you create this one?
+
+&lt;img src="slide_deck_jon_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+
+
+```r
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+---
+
+## Introducing global mapping
+
+
+```r
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+--
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()
+```
+
+--
+
+
+```r
+ggplot(mpg, aes(displ,hwy)) +
+  geom_point() +
+  geom_smooth()
+```
+
+---
+
+## Local mappings overwrite global mappings for that _that layer only_
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_point(data = filter(mpg, class == "2seater"), colour = "red") 
+```
+
+&lt;img src="slide_deck_jon_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# [The Five-Named Graphs](http://moderndive.com/3-viz.html#FiveNG)
+
+## The 5NG of data viz
+
+- Scatterplot: `geom_point()`
+- Line graph: `geom_line()`
+- Histogram: `geom_histogram()`
+- Boxplot: `geom_boxplot()`
+- Bar graph: `geom_bar()`
+
+
+---
+
+class: center, middle
+
+## More examples
+
+---
+
+## Histogram
+
+
+```r
+library(nycflights13)
+ggplot(data = weather, mapping = aes(x = humid)) +
+  geom_histogram(bins = 20, color = "black", fill = "darkorange")
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+
+---
+
+## Boxplot (broken)
+
+
+```r
+library(nycflights13)
+ggplot(data = weather, mapping = aes(x = month, y = humid)) +
+  geom_boxplot()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-53-1.png)&lt;!-- --&gt;
+
+---
+
+
+## Boxplot (fixed)
+
+
+```r
+library(nycflights13)
+ggplot(data = weather, mapping = aes(x = factor(month), y = humid)) +
+  geom_boxplot()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+
+---
+
+## Bar graph
+
+
+```r
+library(fivethirtyeight)
+ggplot(data = bechdel, mapping = aes(x = clean_test)) +
+  geom_bar()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-55-1.png)&lt;!-- --&gt;
+
+---
+
+## How about over time?
+
+- One more variable to create with `dplyr`
+
+
+```r
+library(dplyr)
+year_bins &lt;- c("'70-'74", "'75-'79", "'80-'84", "'85-'89",
+               "'90-'94", "'95-'99", "'00-'04", "'05-'09",
+               "'10-'13")
+bechdel &lt;- bechdel %&gt;%
+  mutate(five_year = cut(year, 
+                         breaks = seq(1969, 2014, 5), 
+                         labels = year_bins))
+```
+
+---
+
+## How about over time? (Stacked)
+
+
+```r
+library(fivethirtyeight)
+library(ggplot2)
+ggplot(data = bechdel,
+       mapping = aes(x = five_year, fill = clean_test)) +
+  geom_bar() +
+  scale_fill_brewer(type = "qual") # set colors
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+
+---
+
+## How about over time? (Side-by-side)
+
+
+```r
+library(fivethirtyeight)
+library(ggplot2)
+ggplot(data = bechdel,
+       mapping = aes(x = five_year, fill = clean_test)) +
+  geom_bar(position = "dodge") +
+  scale_fill_brewer(type = "qual")
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+
+---
+
+## How about over time? (Stacked proportional)
+
+
+```r
+library(fivethirtyeight)
+library(ggplot2)
+ggplot(data = bechdel,
+       mapping = aes(x = five_year, fill = clean_test)) +
+  geom_bar(position = "fill", color = "black") +
+  scale_fill_brewer(type = "qual")
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-59-1.png)&lt;!-- --&gt;
+
+---
+
+## Practice
+
+Produce appropriate 5NG with R package &amp; data set in [ ], e.g., [`nycflights13::weather`] 
+
+&lt;!--
+Try to look through the help documentation/Google to improve your plots
+--&gt;
+
+1. How does `age` predict `recline_rude`? &lt;br&gt; [`fivethirtyeight::flying`]
+
+2. Distribution of log base 10 scale of `budget_2013` &lt;br&gt; [`fivethirtyeight::bechdel`]
+
+3. How does `budget` predict `rating`? &lt;br&gt; [`ggplot2movies::movies`]
+
+---
+
+### HINTS
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-60-1.png)&lt;!-- --&gt;
+
+---
+
+class: center, middle
+
+### Determining the appropriate plot
+
+&lt;a href="https://coggle.it/diagram/V_G2gzukTDoQ-aZt"&gt;&lt;img src="figure/viz_mindmap.png" style="width: 385px;"/&gt;&lt;/a&gt;
+
+---
+
+## Some good resources for data visualisation
+
+- [FUNDAMENTALS OF DATA VISUALISATION](https://serialmentor.com/dataviz/)
+Claus O. Wilke
+    + https://serialmentor.com/dataviz/
+- [awesome-python](https://github.com/vinta/awesome-python#data-visualization)
+    + https://github.com/vinta/awesome-python#data-visualization
+- [Flowing data](http://flowingdata.com/)
+    + http://flowingdata.com/
+- [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday)
+    + https://github.com/rfordatascience/tidytuesday
+    
+---
+
+# Review
+
+- Write the code to produce this plot for 2007 data
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-61-1.png)&lt;!-- --&gt;
+
+---
+
+
+```r
+library(gapminder)
+library(tidyverse)
+gapminder_2007 &lt;- gapminder %&gt;% filter(year == 2007)
+ggplot(data = gapminder_2007, 
+       mapping = aes(x = gdpPercap, y = lifeExp, 
+                     size = pop, color = continent)) +
+  geom_point()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-62-1.png)&lt;!-- --&gt;
+
+---
+
+layout: false
+class: center, middle
+name: tidying
+
+# Data Tidying
+
+&lt;center&gt;
+&lt;a href="https://tidyr.tidyverse.org"&gt;
+&lt;img src="img/tidyr_hex.png" style = "width: 380px;"/&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+
+# Tidy Data?
+
+&lt;img src="http://garrettgman.github.io/images/tidy-1.png" alt="Drawing" style="width: 750px;"/&gt;
+
+1. Each variable forms a column.
+2. Each observation forms a row.
+3. Each type of observational unit forms a table.
+
+The third point means we don't mix apples and oranges.
+
+---
+
+## What is Tidy Data?
+
+1. Each observation forms a row. In other words, each row corresponds to a single instance of an &lt;u&gt;observational unit&lt;/u&gt;
+1. Each variable forms a column:
+    + Some variables may be used to identify the &lt;u&gt;observational units&lt;/u&gt;. 
+    + For organizational purposes, it's generally better to put these in the left-hand columns
+1. Each type of observational unit forms a table.
+
+---
+
+## Differentiating between &lt;u&gt;neat&lt;/u&gt; data and &lt;u&gt;tidy&lt;/u&gt; data
+
+- Colloquially, they mean the same thing
+- But in our context, one is a subset of the other. 
+
+&lt;br&gt;
+
+&lt;u&gt;Neat&lt;/u&gt; data is 
+  - easy to look at, 
+  - organized nicely, and 
+  - in table form.
+
+--
+
+&lt;u&gt;Tidy&lt;/u&gt; data is neat but also abides by a set of three rules.
+
+---
+
+Consider these representations of the __same__ data
+
+
+```
+# A tibble: 6 x 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583
+```
+
+```
+# A tibble: 12 x 4
+   country      year type            count
+   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+ 8 Brazil       2000 population  174504898
+ 9 China        1999 cases          212258
+10 China        1999 population 1272915272
+11 China        2000 cases          213766
+12 China        2000 population 1280428583
+```
+
+---
+
+What if you wanted to plot cases v. year?
+
+
+```
+# A tibble: 6 x 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583
+```
+
+```
+# A tibble: 12 x 4
+   country      year type            count
+   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+ 8 Brazil       2000 population  174504898
+ 9 China        1999 cases          212258
+10 China        1999 population 1272915272
+11 China        2000 cases          213766
+12 China        2000 population 1280428583
+```
+
+---
+
+## A solution
+
+
+```r
+library(ggplot2)
+ggplot(table1, aes(year, cases)) + 
+  geom_line(aes(group = country), colour = "grey50") + 
+  geom_point(aes(colour = country))
+```
+
+&lt;img src="slide_deck_jon_files/figure-html/unnamed-chunk-65-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Other useful examples
+
+Compute rate per 10,000
+
+
+```r
+table1 %&gt;% 
+  mutate(rate = cases / population * 10000)
+```
+
+```
+# A tibble: 6 x 5
+  country      year  cases population  rate
+  &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt; &lt;dbl&gt;
+1 Afghanistan  1999    745   19987071 0.373
+2 Afghanistan  2000   2666   20595360 1.29 
+3 Brazil       1999  37737  172006362 2.19 
+4 Brazil       2000  80488  174504898 4.61 
+5 China        1999 212258 1272915272 1.67 
+6 China        2000 213766 1280428583 1.67 
+```
+
+---
+
+## Other useful examples
+
+Compute cases per year
+
+
+```r
+table1 %&gt;% 
+  count(year, wt = cases)
+```
+
+```
+# A tibble: 2 x 2
+   year      n
+  &lt;int&gt;  &lt;int&gt;
+1  1999 250740
+2  2000 296920
+```
+
+---
+
+## Two common problems:
+
+- One variable might be spread across multiple columns.
+
+- One observation might be scattered across multiple rows.
+
+---
+
+## Variable spread across multiple columns
+
+A common problem is a dataset where some of the column names are not names of variables, but values of a variable. 
+
+
+```
+# A tibble: 3 x 3
+  country     `1999` `2000`
+* &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+1 Afghanistan    745   2666
+2 Brazil       37737  80488
+3 China       212258 213766
+```
+
+--
+
+Introducing `gather()`
+
+---
+
+## `gather()` columns into a new pair of variables
+
+
+```
+# A tibble: 3 x 3
+  country     `1999` `2000`
+* &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+1 Afghanistan    745   2666
+2 Brazil       37737  80488
+3 China       212258 213766
+```
+
+
+
+```r
+table4a %&gt;% 
+  gather(`1999`, `2000`, key = "year", value = "cases")
+```
+
+```
+# A tibble: 6 x 3
+  country     year   cases
+  &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+1 Afghanistan 1999     745
+2 Brazil      1999   37737
+3 China       1999  212258
+4 Afghanistan 2000    2666
+5 Brazil      2000   80488
+6 China       2000  213766
+```
+
+---
+
+## What happened
+
+&lt;img src="img/tidy-gather.png" style="width: 750px;" /&gt;
+
+---
+
+## An observation is scattered across multiple rows
+
+
+```
+# A tibble: 12 x 4
+   country      year type            count
+   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+ 8 Brazil       2000 population  174504898
+ 9 China        1999 cases          212258
+10 China        1999 population 1272915272
+11 China        2000 cases          213766
+12 China        2000 population 1280428583
+```
+
+--
+
+Introducing `spread()`
+
+---
+
+
+
+```
+# A tibble: 12 x 4
+   country      year type            count
+   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+ 1 Afghanistan  1999 cases             745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000 cases            2666
+ 4 Afghanistan  2000 population   20595360
+ 5 Brazil       1999 cases           37737
+ 6 Brazil       1999 population  172006362
+ 7 Brazil       2000 cases           80488
+ 8 Brazil       2000 population  174504898
+ 9 China        1999 cases          212258
+10 China        1999 population 1272915272
+11 China        2000 cases          213766
+12 China        2000 population 1280428583
+```
+
+We need two parameters:
+
+- The column that contains variable names, the key column. Here, it’s type.
+
+- The column that contains values from multiple variables, the value column. Here it’s count.
+
+---
+
+## `spread()` columns into new variables
+
+
+```r
+table2 %&gt;%
+    spread(key = type, value = count)
+```
+
+```
+# A tibble: 6 x 4
+  country      year  cases population
+  &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3 Brazil       1999  37737  172006362
+4 Brazil       2000  80488  174504898
+5 China        1999 212258 1272915272
+6 China        2000 213766 1280428583
+```
+
+---
+
+## What happened?
+
+&lt;img src="img/tidy-spread.png" style="width: 750px;" /&gt;
+
+---
+
+## Is this tidy?
+
+
+```
+# A tibble: 12 x 4
+    year title                        clean_test budget_2013
+   &lt;int&gt; &lt;chr&gt;                        &lt;ord&gt;            &lt;int&gt;
+ 1  1995 Apollo 13                    ok            99370665
+ 2  2005 Brokeback Mountain           notalk        16583160
+ 3  2010 Diary of a Wimpy Kid         ok            16023478
+ 4  1984 Dune                         dubious      100864980
+ 5  1984 Ghostbusters                 notalk        67243320
+ 6  2003 How to Lose a Guy in 10 Days men           63304348
+ 7  2011 Iris                         ok             5696299
+ 8  2004 Sideways                     ok            20964279
+ 9  2000 Songcatcher                  ok             2435235
+10  2004 Team America: World Police   men           24663858
+11  2010 Tron Legacy                  notalk       213646368
+12  2011 War Horse                    notalk        72498355
+```
+
+
+---
+
+name: demscore
+
+## How about this? Is this tidy?
+
+
+```
+# A tibble: 12 x 13
+   country `1952` `1957` `1962` `1967` `1972` `1977` `1982` `1987`
+   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Albania     -9     -9     -9     -9     -9     -9     -9     -9
+ 2 Argent…     -9     -1     -1     -9     -9     -9     -8      8
+ 3 Armenia     -9     -7     -7     -7     -7     -7     -7     -7
+ 4 Austra…     10     10     10     10     10     10     10     10
+ 5 Austria     10     10     10     10     10     10     10     10
+ 6 Azerba…     -9     -7     -7     -7     -7     -7     -7     -7
+ 7 Belarus     -9     -7     -7     -7     -7     -7     -7     -7
+ 8 Belgium     10     10     10     10     10     10     10     10
+ 9 Bhutan     -10    -10    -10    -10    -10    -10    -10    -10
+10 Bolivia     -4     -3     -3     -4     -7     -7      8      9
+11 Brazil       5      5      5     -9     -9     -4     -3      7
+12 Bulgar…     -7     -7     -7     -7     -7     -7     -7     -7
+# … with 4 more variables: `1992` &lt;dbl&gt;, `1997` &lt;dbl&gt;, `2002` &lt;dbl&gt;,
+#   `2007` &lt;dbl&gt;
+```
+
+---
+
+name: whytidy
+
+## Why is tidy data important?
+
+- Think about trying to plot democracy score across years in the simplest way possible with the data on the [previous slide](#demscore).
+--
+
+- It would be much easier if the data looked like what follows instead so we could put 
+    - `year` on the `x`-axis and 
+    - `dem_score` on the `y`-axis.
+
+---
+
+## Tidy is good
+
+
+```r
+library(tidyr)
+dem_score_tidy &lt;- dem_score %&gt;% 
+  gather(-country, key = "year", value = "dem_score") %&gt;% 
+  mutate(year = as.integer(year)) 
+dem_score_tidy %&gt;% sample_n(10) %&gt;% arrange(country)
+```
+--
+
+
+```
+# A tibble: 10 x 3
+   country     year dem_score
+   &lt;chr&gt;      &lt;int&gt;     &lt;dbl&gt;
+ 1 Canada      1997        10
+ 2 Costa Rica  1962        10
+ 3 Denmark     2002        10
+ 4 Georgia     1977        -7
+ 5 Montenegro  1972        -7
+ 6 Norway      2007        10
+ 7 Panama      1962         4
+ 8 Sweden      1972        10
+ 9 Taiwan      1952        -8
+10 Taiwan      1987        -1
+```
+
+---
+
+## Let's plot it
+
+- Plot the line graph for 4 countries using `ggplot`
+
+
+```r
+dem_score4 &lt;- dem_score_tidy %&gt;%
+  filter(country %in% c("Australia", "Pakistan", "Portugal", "Uruguay"))
+ggplot(data = dem_score4, mapping = aes(x = year, y = dem_score)) +
+  geom_line(mapping = aes(color = country), size = 2)
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-78-1.png)&lt;!-- --&gt;
+
+---
+
+## Beginning steps
+
+Frequently the first thing to do when given a dataset is to
+
+- check that the data is &lt;u&gt;tidy&lt;/u&gt; (if not, convert it!)
+- identify the observational unit,
+- specify the variables, and
+- give the types of variables you are presented with.
+
+This will help with 
+
+- choosing the appropriate plot, 
+- summarizing the data, and 
+- understanding which inferences can be applied.
+
+---
+
+## Exercise
+
+Is this tidy? How would you make it tidy?
+
+
+```r
+preg &lt;- tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+preg
+```
+
+```
+# A tibble: 2 x 3
+  pregnant  male female
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 yes         NA     10
+2 no          20     12
+```
+
+---
+
+
+```
+# A tibble: 2 x 3
+  pregnant  male female
+  &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+1 yes         NA     10
+2 no          20     12
+```
+
+--
+
+
+```r
+gather(preg, sex, count, male, female) %&gt;%
+  mutate(pregnant = pregnant == "yes",
+         female = sex == "female") %&gt;%
+  select(-sex)
+```
+
+```
+# A tibble: 4 x 3
+  pregnant count female
+  &lt;lgl&gt;    &lt;dbl&gt; &lt;lgl&gt; 
+1 TRUE        NA FALSE 
+2 FALSE       20 FALSE 
+3 TRUE        10 TRUE  
+4 FALSE       12 TRUE  
+```
+
+---
+
+layout: false
+class: center, middle
+name: eda
+
+# Exploratory data analysis
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
+
+---
+
+## The `ggplots::diamonds` dataset
+
+
+```r
+library(tidyverse)
+diamonds
+```
+
+```
+# A tibble: 53,940 x 10
+   carat cut       color clarity depth table price     x     y     z
+   &lt;dbl&gt; &lt;ord&gt;     &lt;ord&gt; &lt;ord&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 0.23  Ideal     E     SI2      61.5    55   326  3.95  3.98  2.43
+ 2 0.21  Premium   E     SI1      59.8    61   326  3.89  3.84  2.31
+ 3 0.23  Good      E     VS1      56.9    65   327  4.05  4.07  2.31
+ 4 0.290 Premium   I     VS2      62.4    58   334  4.2   4.23  2.63
+ 5 0.31  Good      J     SI2      63.3    58   335  4.34  4.35  2.75
+ 6 0.24  Very Good J     VVS2     62.8    57   336  3.94  3.96  2.48
+ 7 0.24  Very Good I     VVS1     62.3    57   336  3.95  3.98  2.47
+ 8 0.26  Very Good H     SI1      61.9    55   337  4.07  4.11  2.53
+ 9 0.22  Fair      E     VS2      65.1    61   337  3.87  3.78  2.49
+10 0.23  Very Good H     VS1      59.4    61   338  4     4.05  2.39
+# … with 53,930 more rows
+```
+
+---
+
+## First steps
+- What is the structure of the data?
+- Is there a data dictionary?
+- Visualise distributions
+    + Categorical variables
+    + Continuous variable
+    + Create a dataframe `smaller` containing only those diamonds that are less than 3 carats
+    + Explore distribution of `cut` using `geom_freqpoly` on the `smaller` dataframe
+
+---
+
+## Are there any unusual patterns?
+
+- What might explain them?
+- Can you see evidence of outliers? 
+
+---
+
+## Exercise
+
+- Explore the distributions of the variables `x`, `y` and `z`.
+- Do you see anything unusual?
+
+---
+
+## Covariation
+
+- Distributions describe the variation _within_ a variable
+- Covariation describes the variation _between_ variables
+- Try creating boxplots for `price` v. `cut`
+- Try for `hwy` mileage v. vehicle `class` in the `mpg` dataset
+
+---
+
+## `price` versus `cut`
+
+--
+
+
+```r
+ggplot(diamonds, aes(cut, price)) +
+  geom_boxplot()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-83-1.png)&lt;!-- --&gt;
+
+---
+
+## `hwy` versus `class`
+
+
+```r
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-84-1.png)&lt;!-- --&gt;
+
+---
+
+## `hwy` versus `class`
+
+
+```r
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-85-1.png)&lt;!-- --&gt;
+
+---
+
+## The previous slides explored covariation between a categorical variable and a continuous variable. 
+
+- What if you have two categorical variables?
+- For example, `color` and `cut`?
+
+---
+
+## `geom_tile`
+
+
+```r
+diamonds %&gt;% 
+  count(color, cut) %&gt;% 
+  ggplot(aes(color, cut)) +
+  geom_tile(mapping = aes(fill = n))
+```
+
+![](slide_deck_jon_files/figure-html/unnamed-chunk-86-1.png)&lt;!-- --&gt;
+
+---
+
+## What if you have two continuous variables?
+
+---
+
+layout: false
+class: inverse, center, middle
+
+# Thank you!
+
+---
+
+layout: false
+class: inverse, middle
+
+&lt;center&gt;
+&lt;a href="https://www.datacamp.com"&gt;
+&lt;img src="img/DataCamp_Vertical_White.png" style="width: 220px;"/&gt;
+&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://moderndive.netlify.com"&gt; 
+&lt;img src="img/dark_vert.png" style="width: 210px;"/&gt;&lt;/a&gt;&amp;emsp;&amp;emsp;&lt;a href="https://infer.netlify.com"&gt; 
+&lt;img src="img/infer_oregon3.png" style="width: 200px;"/&gt;&lt;/a&gt;&lt;/center&gt;
+
+## Thanks for attending! Contact me: [Email](mailto:chester@datacamp.com) or [Twitter](https://twitter.com/old_man_chester)
+- Special thanks to 
+    - [Albert Y. Kim](https://twitter.com/rudeboybert) 
+    - [Andrew Bray](https://andrewpbray.github.io)
+    - [Alison Hill](https://twitter.com/apreshill)
+- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+- Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"highlightLanguage": "r"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
