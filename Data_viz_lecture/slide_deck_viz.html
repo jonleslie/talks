@@ -47,11 +47,20 @@ class: inverse
 
 ---
 
-## Acknowledgement
+# Acknowledgements
 
 Dr. Chester Ismay &lt;br&gt;&lt;br&gt;&lt;br&gt; &lt;a href="http://github.com/ismayc"&gt;&lt;i class="fa fa-github fa-fw"&gt;&lt;/i&gt;&amp;nbsp; ismayc&lt;/a&gt;&lt;br&gt; &lt;a href="http://twitter.com/old_man_chester"&gt; &lt;i class="fa fa-twitter fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @old_man_chester&lt;/a&gt;&lt;br&gt;&lt;br&gt;
   
 .footer[Slides available at http://bit.ly/ness-infer &amp;emsp; &amp;emsp; &amp;emsp; ]
+
+---
+
+# Acknowledgements
+
+.pull-left[Claus O. Wilke &lt;br&gt;&lt;br&gt;&lt;br&gt; &lt;a href="https://github.com/clauswilke"&gt;&lt;i class="fa fa-github fa-fw"&gt;&lt;/i&gt;&amp;nbsp; clauswilke&lt;/a&gt;&lt;br&gt; &lt;a href="https://twitter.com/ClausWilke"&gt; &lt;i class="fa fa-twitter fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @ClausWilke&lt;/a&gt;&lt;br&gt;&lt;br&gt;]
+.pull-right[&lt;img src="img/Fund_of_Data_Vis-cover.png" /&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;]
+
+.footer[https://serialmentor.com/dataviz/index.html &amp;emsp; &amp;emsp; &amp;emsp; ]
 
 ---
 
@@ -65,17 +74,84 @@ class: inverse
 name: viz_principles
 
 # Principles of Visualisation
+- Why do we use visualisations
+- Some best practices
 
 ---
 
 # Why do we use visualisations?
 
---
+---
 
-- To tell a story
-- To show a finding
-- To accurately reflect the data
-- To make something beautiful
+## To show a finding
+
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## To tell a story
+
+&lt;img src="img/Minard's_Map_(vectorized).png" syle="width:300px; center" /&gt;
+
+.small.right[Charles Joseph Minard (1869)]
+
+
+---
+
+## To make something beautiful
+
+.center[&lt;img src="img/Switzerland.png" style="height:490px" /&gt;]
+
+---
+
+# Why do we use visualisations?
+
+.center.large[&lt;br&gt;&lt;br&gt;&lt;span style="color:#FF0000"&gt;TO ACCURATELY EXCHANGE INFORMATION&lt;/span&gt;]
+
+---
+
+# Some best practices
+- Reproducibility
+- Autogeneration
+  - Manual editing --&gt; irreproducibility
+  - Easy to make changes
+  - Future you may not know what pressent you did
+- Avoid interactive plot programmes (Excel counts)
+
+---
+
+layout: true
+class: inverse
+
+---
+
+# The good, the bad and the ugly 
+
+.center[&lt;img src="img/ugly-bad-wrong-examples-1.png" width="80%"/&gt;&lt;br&gt;]
+
+.small.right[(https://serialmentor.com/dataviz/)]
+
+---
+
+# Consider your audience
+- Publication
+- Conference talk
+- Exploratory data analysis
+- Progress report to your boss
+
+---
+
+# Another example
+
+.center[&lt;img src="img/bad_fig.png_large" /&gt;]
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
 
 ---
 
@@ -108,7 +184,7 @@ class: inverse
 .footer[[Return to Table of Contents](#toc)]
 
 ---
-&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 
 - What are the variables here?
 - What is the observational unit?
@@ -233,7 +309,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -251,7 +327,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -268,7 +344,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) +
 ```
 --
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -306,7 +382,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -352,7 +428,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -364,7 +440,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -376,7 +452,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, size = class))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -389,7 +465,7 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 2)
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -401,7 +477,7 @@ A geom is the geometrical object that a plot uses to represent data.
 
 ## Same data, different `geom`s
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;![](slide_deck_viz_files/figure-html/unnamed-chunk-18-2.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;![](slide_deck_viz_files/figure-html/unnamed-chunk-19-2.png)&lt;!-- --&gt;
 
 
 Exercise: try to create each of these plots
@@ -412,7 +488,7 @@ Exercise: try to create each of these plots
 
 ## Can you create this one?
 
-&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -463,7 +539,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(data = filter(mpg, class == "2seater"), colour = "red") 
 ```
 
-&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -495,7 +571,7 @@ ggplot(data = weather, mapping = aes(x = humid)) +
   geom_histogram(bins = 20, color = "black", fill = "darkorange")
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -508,7 +584,7 @@ ggplot(data = weather, mapping = aes(x = month, y = humid)) +
   geom_boxplot()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -522,7 +598,7 @@ ggplot(data = weather, mapping = aes(x = factor(month), y = humid)) +
   geom_boxplot()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -535,7 +611,7 @@ ggplot(data = bechdel, mapping = aes(x = clean_test)) +
   geom_bar()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -569,7 +645,7 @@ ggplot(data = bechdel,
   scale_fill_brewer(type = "qual") # set colors
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -585,7 +661,7 @@ ggplot(data = bechdel,
   scale_fill_brewer(type = "qual")
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -601,7 +677,7 @@ ggplot(data = bechdel,
   scale_fill_brewer(type = "qual")
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -623,7 +699,7 @@ Try to look through the help documentation/Google to improve your plots
 
 ### HINTS
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -653,7 +729,7 @@ Claus O. Wilke
 
 - Write the code to produce this plot for 2007 data
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -668,7 +744,7 @@ ggplot(data = gapminder_2007,
   geom_point()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 
 ---
 

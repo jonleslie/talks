@@ -395,16 +395,16 @@ gapminder %&gt;%
 
 ```
 # A tibble: 8 x 6
-  country     continent  year lifeExp       pop gdpPercap
-  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;dbl&gt;
-1 Angola      Africa     2002    41.0  10866106     2773.
-2 Israel      Asia       1997    78.3   5531387    20897.
-3 Serbia      Europe     2002    73.2  10111559     7236.
-4 Indonesia   Asia       1967    46.0 109343000      762.
-5 Philippines Asia       2002    70.3  82995088     2651.
-6 Malaysia    Asia       1992    70.7  18319502     7278.
-7 Pakistan    Asia       1957    45.6  46679944      747.
-8 Oman        Asia       1957    40.1    561977     2243.
+  country     continent  year lifeExp      pop gdpPercap
+  &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+1 Iraq        Asia       1997    58.8 20775703     3076.
+2 Korea, Rep. Asia       1997    74.6 46173816    15994.
+3 Bangladesh  Asia       1952    37.5 46886859      684.
+4 France      Europe     2002    79.6 59925035    28926.
+5 Kuwait      Asia       1957    58.0   212846   113523.
+6 Iran        Asia       1962    49.3 22874000     4187.
+7 Myanmar     Asia       1982    58.1 34680442      424 
+8 Canada      Americas   2002    79.8 31902268    33329.
 ```
 
 ---
@@ -575,10 +575,10 @@ sample_n(gap_w_gdp, 4)
 # A tibble: 4 x 7
   country   continent  year lifeExp      pop gdpPercap           gdp
   &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-1 Mauritius Africa     1962    60.2   701016     2529.   1772916773.
-2 Indonesia Asia       1957    39.9 90124000      859.  77407527997.
-3 Italy     Europe     1977    73.5 56059245    14256. 799179741817.
-4 Denmark   Europe     1987    74.8  5127024    25116. 128771236166.
+1 Comoros   Africa     1967    46.5   217378     1876.    407807572.
+2 Paraguay  Americas   1992    68.2  4483945     4196.  18816476471.
+3 Mauritius Africa     1967    61.6   789309     2475.   1953845681.
+4 Chile     Americas   1997    75.8 14599929    10118. 147722858046.
 ```
 
 ---
@@ -1114,20 +1114,20 @@ table2 %&gt;%
 
 ```
 # A tibble: 12 x 4
-    year title                     clean_test budget_2013
-   &lt;int&gt; &lt;chr&gt;                     &lt;ord&gt;            &lt;int&gt;
- 1  1997 Boogie Nights             dubious       21768572
- 2  2000 Chicken Run               ok            56822152
- 3  2007 Hitman                    nowomen       19662011
- 4  2006 Miss Potter               ok            34673890
- 5  1990 Predator 2                men           62404139
- 6  2004 Resident Evil: Apocalypse ok            61659644
- 7  2007 Rush Hour 3               notalk       202237827
- 8  1998 Six Days Seven Nights     notalk       114330585
- 9  2010 Super                     notalk         2670580
-10  2011 Super 8                   ok            51784539
-11  1999 The Boondock Saints       nowomen        9789234
-12  2010 The Sorcerer's Apprentice notalk       170917095
+    year title                        clean_test budget_2013
+   &lt;int&gt; &lt;chr&gt;                        &lt;ord&gt;            &lt;int&gt;
+ 1  1995 Apollo 13                    ok            99370665
+ 2  2005 Brokeback Mountain           notalk        16583160
+ 3  2010 Diary of a Wimpy Kid         ok            16023478
+ 4  1984 Dune                         dubious      100864980
+ 5  1984 Ghostbusters                 notalk        67243320
+ 6  2003 How to Lose a Guy in 10 Days men           63304348
+ 7  2011 Iris                         ok             5696299
+ 8  2004 Sideways                     ok            20964279
+ 9  2000 Songcatcher                  ok             2435235
+10  2004 Team America: World Police   men           24663858
+11  2010 Tron Legacy                  notalk       213646368
+12  2011 War Horse                    notalk        72498355
 ```
 
 
@@ -1188,18 +1188,18 @@ dem_score_tidy %&gt;% sample_n(10) %&gt;% arrange(country)
 
 ```
 # A tibble: 10 x 3
-   country         year dem_score
-   &lt;chr&gt;          &lt;int&gt;     &lt;dbl&gt;
- 1 Australia       1977        10
- 2 Bhutan          1997       -10
- 3 Dominican Rep.  1977        -3
- 4 Iran            1962       -10
- 5 Latvia          1992         8
- 6 Macedonia, FYR  1992         6
- 7 Pakistan        1982        -7
- 8 South Africa    1972         4
- 9 Sweden          1967        10
-10 Venezuela       1972         9
+   country     year dem_score
+   &lt;chr&gt;      &lt;int&gt;     &lt;dbl&gt;
+ 1 Canada      1997        10
+ 2 Costa Rica  1962        10
+ 3 Denmark     2002        10
+ 4 Georgia     1977        -7
+ 5 Montenegro  1972        -7
+ 6 Norway      2007        10
+ 7 Panama      1962         4
+ 8 Sweden      1972        10
+ 9 Taiwan      1952        -8
+10 Taiwan      1987        -1
 ```
 
 ---

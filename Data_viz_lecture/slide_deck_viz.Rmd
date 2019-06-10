@@ -84,11 +84,20 @@ class: inverse
 
 ---
 
-## Acknowledgement
+# Acknowledgements
 
 Dr. Chester Ismay <br><br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br><br>
   
 .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; ]
+
+---
+
+# Acknowledgements
+
+.pull-left[Claus O. Wilke <br><br><br> <a href="https://github.com/clauswilke"><i class="fa fa-github fa-fw"></i>&nbsp; clauswilke</a><br> <a href="https://twitter.com/ClausWilke"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @ClausWilke</a><br><br>]
+.pull-right[<img src="img/Fund_of_Data_Vis-cover.png" /><br><br><br>]
+
+.footer[https://serialmentor.com/dataviz/index.html &emsp; &emsp; &emsp; ]
 
 ---
 
@@ -102,17 +111,92 @@ class: inverse
 name: viz_principles
 
 # Principles of Visualisation
+- Why do we use visualisations
+- Some best practices
 
 ---
 
 # Why do we use visualisations?
 
---
+---
 
-- To tell a story
-- To show a finding
-- To accurately reflect the data
-- To make something beautiful
+## To show a finding
+
+```{r echo=FALSE,fig.height=5, fig.width=6, fig.align='center', purl=FALSE}
+mpg %>% 
+  ggplot(aes(as.factor(cyl), hwy)) +
+  geom_boxplot() +
+  xlab("Number of cylinders") +
+  ylab("Highway miles per gallon") +
+  ggtitle("Fuel efficiency")
+  
+```
+
+
+---
+
+## To tell a story
+
+<img src="img/Minard's_Map_(vectorized).png" syle="width:300px; center" />
+
+.small.right[Charles Joseph Minard (1869)]
+
+
+---
+
+## To make something beautiful
+
+.center[<img src="img/Switzerland.png" style="height:490px" />]
+
+---
+
+# Why do we use visualisations?
+
+.center.large[<br><br><span style="color:#FF0000">TO ACCURATELY EXCHANGE INFORMATION</span>]
+
+---
+
+# Some best practices
+- Reproducibility
+- Autogeneration
+  - Manual editing --> irreproducibility
+  - Easy to make changes
+  - Future you may not know what pressent you did
+- Avoid interactive plot programmes (Excel counts)
+
+---
+
+layout: true
+class: inverse
+
+---
+
+# The good, the bad and the ugly 
+
+.center[<img src="img/ugly-bad-wrong-examples-1.png" width="80%"/><br>]
+
+.small.right[(https://serialmentor.com/dataviz/)]
+
+---
+
+# Consider your audience
+- Publication
+- Conference talk
+- Exploratory data analysis
+- Progress report to your boss
+
+---
+
+# Another example
+
+.center[<img src="img/bad_fig.png_large" />]
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
 
 ---
 
