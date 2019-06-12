@@ -16,18 +16,14 @@ dim(mpg)
 # 3
 ?mpg
 mpg
+
 # 4
-
-g1 <- ggplot(data = mpg)
-g1+
-  geom_point(mapping = aes(x = displ, y = hwy))
-
-ggplot(data = mpg, aes(x = cyl, y = hwy)) +
-  geom_point()
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = cyl, y = hwy))
 
 # 5
-ggplot(mpg, aes(drv, class)) +
-  geom_point()
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = drv, y = class))
 
 # Aesthetics --------------------------------------------------------------
 
@@ -57,13 +53,15 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
 
 # Practice ----------------------------------------------------------------
 
-df <- fivethirtyeight::flying
+df <- fivethirtyeight::flying %>% 
+  filter(!is.na(recline_rude))
 glimpse(df)
 str(df)
 ?fivethirtyeight::flying
 
 ggplot(df) +
   geom_bar(position = "fill", mapping = aes(x = age, fill = recline_rude))
+
 
 ggplot(fivethirtyeight::bechdel) +
   geom_histogram(mapping = aes(x =log10(budget_2013)))

@@ -28,10 +28,14 @@ name: toc
 
 # Table of Contents
 
-- [Principles of data visualisation](#viz_principles)
-- [Building a graphic](#building_a_graphic)
-- [Data visualisation in R](#viz)
-- [Other resources](#resources)
+Part 1
+  - [Principles of data visualisation](#viz_principles)
+  - [Building a graphic](#building_a_graphic)
+  - [(Some) Types of plots](#plot_types)
+
+Part 2
+  - [Data visualisation in R](#viz)
+  - [Other resources](#resources)
 
 ---
 
@@ -143,7 +147,7 @@ class: inverse
 - Autogeneration
   - Manual editing --&gt; irreproducibility
   - Easy to make changes
-  - Future you may not know what pressent you did
+  - Future you may not know what present you did
 - Avoid interactive plot programmes (Excel counts)
 
 ---
@@ -181,13 +185,343 @@ name: building_a_graphic
 
 ![](slide_deck_viz_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
+---
 
+# Geometric objects (geoms)
+- The visual representation of the data
+- For example:
+  - point
+  - line
+  - bar
+  - boxplot
 
 ---
 
-# Two different mappings of the same data
-
 ![](slide_deck_viz_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+
+![](slide_deck_viz_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+# What plot should I use?
+
+--
+
+What data type are you working with:
+- Numerical
+- Categorical
+- Other
+  - Dates/time
+  - Text
+
+---
+
+## Numerical data (quantitative)
+- Continuous:
+  - Arbitrary numerical values
+  - 1.3, 42.0, 8675309
+- Discrete:
+  - Numbers in discrete units
+  - 1, 2, 3, 4
+  
+---
+
+## Categorical data (qualitative)
+- Variables are called factors
+- Categories are called levels
+- Can be ordinal:
+  - bad, fair, good, excellent
+- or nominal:
+  - red, blue, green
+
+---
+
+## Some questions to help you:
+.right.small[(Adopted from ASSOCIATIONS AND CORRELATIONS by Lee Baker)]&lt;br&gt;
+
+--
+
+- Is the variable measured (with an implement) or observed
+
+--
+
+- Are the data ordered?
+  - Can they be ordered meaningfully with progress detected between adjacent data points?
+
+--
+
+- Are the data points equidistant?
+  - Is the distance between adjacent data points or categories consistent?
+
+---
+
+layout: false
+class: remark-code-line-highlighted
+
+# Summary of data types
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; data_type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sub_type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; measured &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; ordered &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; equidistant &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Numerical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Continuous &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Numerical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Discrete &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Categorical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ordinal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Categorical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Nominal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+Your turn:
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; month &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; day &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; dep_delay &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; carrier &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; dest &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; IAH &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1400 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; IAH &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1416 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; AA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MIA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1089 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BQN &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1576 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; DL &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ATL &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 762 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ORD &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 719 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+--
+&lt;br&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; data_type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; sub_type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; measured &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; ordered &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; equidistant &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Numerical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Continuous &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Numerical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Discrete &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Categorical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ordinal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; TRUE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Categorical &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Nominal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; FALSE &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+Flight data:
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; month &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; day &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; dep_delay &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; carrier &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; dest &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; distance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; IAH &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1400 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; IAH &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1416 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; AA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; MIA &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1089 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; B6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; BQN &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1576 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; DL &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ATL &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 762 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; UA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ORD &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 719 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;br&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; data_type &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ordinal &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; day &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; discrete numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; dep_delay &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; continuous numeric &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; carrier &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; nominal &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; dest &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; nominal &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; distance &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; continuous numeric &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+layout: true
+class: inverse
+
+.footer[[Return to Table of Contents](#toc)]
 
 ---
 
@@ -195,11 +529,65 @@ name: plot_types
 
 # What plot should I use?
 
-To answer this, you must know what data type you're working with:
-- Continuous
-- Categorical
-- Ordinal
-- Other
+---
+
+# What plot should I use?
+To show amounts
+- Bars&lt;br&gt;&lt;br&gt;
+
+.left-column[
+![](slide_deck_viz_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+.right-column[
+![](slide_deck_viz_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# What plot should I use?
+To show distributions
+- Histograms, density plots, boxplots, others&lt;br&gt;&lt;br&gt;
+
+.left-column[
+![](slide_deck_viz_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+
+.right-column[
+![](slide_deck_viz_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## The mighty boxplot
+
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# What plot should I use?
+To show _x-y_ relationships
+- Scatter plot, line graphs&lt;br&gt;&lt;br&gt;
+
+.left-column[
+![](slide_deck_viz_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+]
+
+.right-column[
+![](slide_deck_viz_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Other uses:
+- Proportions
+- Geospatial data
+- Uncertainty (error bars, etc)
+- Empirical cumulative distribution functions
+- Quantile-quantile plots
+
 
 ---
 
@@ -222,7 +610,7 @@ class: inverse
 .footer[[Return to Table of Contents](#toc)]
 
 ---
-&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 - What are the variables here?
 - What is the observational unit?
@@ -251,33 +639,6 @@ Wickham implemented the grammar in R &lt;br&gt; in the `ggplot2` package
 &lt;br&gt;
 
 &lt;a href="http://www.powells.com/book/ggplot2-elegant-graphics-for-data-analysis-9783319242750/68-428"&gt;&lt;img src="figure/ggplot2.jpg" style="width: 200px;"&gt;&lt;/a&gt;
-
----
-
-class: center, middle
-
-## Edward Tufte pioneered the field of data visualisation
-
-&lt;img src="img/Tufte_cover.jpg" style="width: 300; center" /&gt;
-
----
-
-class: center, middle
-
-&lt;img src="img/Minard's_Map_(vectorized).png" syle="width:300px; center" /&gt;
-
-.small[Charles Joseph Minard (1869)]
-
----
-
-class: center
-
-## Another recommendation:
-
-FUNDAMENTALS OF DATA VISUALISATION
-Claus O. Wilke
-
-https://serialmentor.com/dataviz/
 
 ---
 
@@ -347,7 +708,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -365,7 +726,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 --
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 
 
 ---
@@ -382,7 +743,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, size = C)) +
 ```
 --
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -420,7 +781,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -466,7 +827,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -478,7 +839,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, shape = class))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -490,7 +851,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy, size = class))
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -503,7 +864,7 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 2)
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -515,7 +876,7 @@ A geom is the geometrical object that a plot uses to represent data.
 
 ## Same data, different `geom`s
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;![](slide_deck_viz_files/figure-html/unnamed-chunk-22-2.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;![](slide_deck_viz_files/figure-html/unnamed-chunk-35-2.png)&lt;!-- --&gt;
 
 
 Exercise: try to create each of these plots
@@ -526,7 +887,7 @@ Exercise: try to create each of these plots
 
 ## Can you create this one?
 
-&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -577,7 +938,7 @@ ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
   geom_point(data = filter(mpg, class == "2seater"), colour = "red") 
 ```
 
-&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="slide_deck_viz_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -609,7 +970,7 @@ ggplot(data = weather, mapping = aes(x = humid)) +
   geom_histogram(bins = 20, color = "black", fill = "darkorange")
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -622,7 +983,7 @@ ggplot(data = weather, mapping = aes(x = month, y = humid)) +
   geom_boxplot()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -636,7 +997,7 @@ ggplot(data = weather, mapping = aes(x = factor(month), y = humid)) +
   geom_boxplot()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -649,7 +1010,7 @@ ggplot(data = bechdel, mapping = aes(x = clean_test)) +
   geom_bar()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -683,7 +1044,7 @@ ggplot(data = bechdel,
   scale_fill_brewer(type = "qual") # set colors
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-47-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -699,7 +1060,7 @@ ggplot(data = bechdel,
   scale_fill_brewer(type = "qual")
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -715,13 +1076,13 @@ ggplot(data = bechdel,
   scale_fill_brewer(type = "qual")
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
 
 ---
 
 ## Practice
 
-Produce appropriate 5NG with R package &amp; data set in [ ], e.g., [`nycflights13::weather`] 
+Produce appropriate graph with R package &amp; data set in [ ], e.g., [`nycflights13::weather`] 
 
 &lt;!--
 Try to look through the help documentation/Google to improve your plots
@@ -737,11 +1098,12 @@ Try to look through the help documentation/Google to improve your plots
 
 ### HINTS
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
 
 ---
 
 class: center, middle
+name: resources
 
 ### Determining the appropriate plot
 
@@ -763,11 +1125,19 @@ Claus O. Wilke
     
 ---
 
+class: center, middle
+
+## Edward Tufte's book on data visualisation
+
+&lt;img src="img/Tufte_cover.jpg" style="width: 300; center" /&gt;
+
+---
+
 # Review
 
 - Write the code to produce this plot for 2007 data
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-51-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -782,7 +1152,7 @@ ggplot(data = gapminder_2007,
   geom_point()
 ```
 
-![](slide_deck_viz_files/figure-html/unnamed-chunk-39-1.png)&lt;!-- --&gt;
+![](slide_deck_viz_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
 
 ---
 
@@ -790,13 +1160,6 @@ layout: true
 class: inversekj
 
 .footer[[Return to Table of Contents](#toc)]
-
----
-
-layout: false
-class: inverse, center, middle
-
-# Thank you!
 
 ---
 
@@ -814,7 +1177,8 @@ Special thanks to Chester Ismay
 - https://twitter.com/old_man_chester
 - Slides' source code at &lt;https://github.com/ismayc/talks/&gt;
 &lt;br&gt;&lt;br&gt;
-- Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
+
+Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="remark-latest.min.js"></script>
