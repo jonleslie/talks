@@ -66,7 +66,7 @@ gif_link <- function(link, file, size){
 # Table of Contents
 
 - [Principles of data visualisation](#viz_principles)
-- [Some common types of plots](#plot_types)
+- [Building a graphic](#building_a_graphic)
 - [Data visualisation in R](#viz)
 - [Other resources](#resources)
 
@@ -156,26 +156,40 @@ mpg %>%
 
 ---
 
-# Some best practices
-- Reproducibility
-- Autogeneration
-  - Manual editing --> irreproducibility
-  - Easy to make changes
-  - Future you may not know what pressent you did
-- Avoid interactive plot programmes (Excel counts)
+layout: true
+class: inverse
+
+---
+
+# "The good, the bad and the ugly"
+
+.center[<img src="img/ugly-bad-wrong-examples-1.png" width="80%"/><br>]
+
+.small.right[(https://serialmentor.com/dataviz/)]
 
 ---
 
 layout: true
 class: inverse
 
+.footer[[Return to Table of Contents](#toc)]
+
 ---
 
-# The good, the bad and the ugly 
+# Another example
 
-.center[<img src="img/ugly-bad-wrong-examples-1.png" width="80%"/><br>]
+.center[<img src="img/bad_fig.png_large" />]
 
-.small.right[(https://serialmentor.com/dataviz/)]
+---
+
+# Some best practices
+- Accuracy
+- Reproducibility
+- Autogeneration
+  - Manual editing --> irreproducibility
+  - Easy to make changes
+  - Future you may not know what pressent you did
+- Avoid interactive plot programmes (Excel counts)
 
 ---
 
@@ -187,26 +201,73 @@ class: inverse
 
 ---
 
-# Another example
-
-.center[<img src="img/bad_fig.png_large" />]
-
----
-
-layout: true
-class: inverse
-
-.footer[[Return to Table of Contents](#toc)]
-
----
+name: building_a_graphic
 
 # Building a graphic
 
 - <span style="color:#FF0000">__aes__</span>thetic mapping
 - <span style="color:#FF0000">__geom__</span>etric objects
-- something else
 
 [//]: # "https://stackoverflow.com/questions/29067541/how-to-change-the-font-color"
+
+---
+
+# Aesthetic mapping
+- Mapping of data values to quantifiable features on the graphic
+- Can include:
+  - position
+  - colour
+  - shape
+  - size
+  
+---
+
+```{r echo=FALSE, purl=FALSE}
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy, col = cyl)) +
+  geom_point() 
+```
+
+```{r echo=FALSE, purl=FALSE}
+
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy, shape = as.factor(cyl))) +
+  geom_point() 
+
+```
+
+
+
+---
+
+# Two different mappings of the same data
+
+```{r echo=FALSE, purl=FALSE, fig.height=5}
+one <- mpg %>% 
+  ggplot(aes(x = displ, y = hwy, col = cyl)) +
+  geom_point() +
+  theme(legend.position = "none")
+
+two <- mpg %>% 
+  ggplot(aes(x = displ, y = hwy, shape = as.factor(cyl))) +
+  geom_point() +
+  theme(legend.position = "none")
+
+grid.arrange(one, two, ncol = 2)
+
+```
+
+---
+
+name: plot_types
+
+# What plot should I use?
+
+To answer this, you must know what data type you're working with:
+- Continuous
+- Categorical
+- Ordinal
+- Other
 
 ---
 
