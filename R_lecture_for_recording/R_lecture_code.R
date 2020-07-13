@@ -1,0 +1,1000 @@
+#' ---
+#' title: "An introduction to R"
+#' author: 'Dr. Jonathan Leslie <br> Head of Data Science at <a href="https://www.pivigo.com/">Pivigo</a> <br><br> <a href="https://github.com/jonleslie"><i class="fa fa-github fa-fw"></i>&nbsp; jonleslie</a><br> <a href="https://twitter.com/jlesliedata"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @jlesliedata</a><br> <a href="mailto:jonathan.leslie@pivigo.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; jonathan.leslie@pivigo.com</a><br>'
+#' date:  <br><br><br>
+#' output: 
+#'   xaringan::moon_reader:
+#'     chakra: remark-latest.min.js
+#'     lib_dir: libs
+#'     nature:
+#'       highlightStyle: tomorrow-night-bright
+#'       highlightLines: true
+#'       highlightLanguage: r
+#'     includes:
+#'       in_header: header.html      
+#'     countIncrementalSlides: false
+#'     css: example.css
+#' ---
+#' 
+#' class: inverse
+#' name: toc
+#' 
+#' 
+## ----include=FALSE, purl=TRUE--------------------------------------------
+#specify the packages of interest
+pkgs <- c("tidyverse", "moderndive", "gapminder",
+          "nycflights13", "fivethirtyeight", "janitor",
+          "ggplot2movies", "remotes")
+
+# use this function to check if each package is on the local machine
+# if a package is installed, it will be loaded
+# if any are not, the missing package(s) will be installed and loaded
+pkg.check <- function(x) {
+    if (!require(x, character.only = TRUE)) {
+        install.packages(x, dependencies = TRUE, repos = "https://cran.rstudio.com")
+        library(x, character.only = TRUE)
+    }
+}
+lapply(pkgs, pkg.check)
+
+if(!require("infer"))
+  remotes::install_github("andrewpbray/infer")
+
+#' 
+
+#' 
+#' # Table of Contents
+#' 
+#' - [Why R?](#whyR)
+#' - [A tour of RStudio](#tour)
+#' - [Getting started with R](#getting_started)
+#' - [Data wrangling](#wrangling)
+#' - [Data tidying](#tidying)
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[[Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' name: whyR
+#' 
+#' # Why R?
+#' 
+#' - Open source
+#' - Powerful statistics
+#' - Outstanding for plotting
+#' - Shiny dashboards
+#' - Community
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' ---
+#' 
+#' ## Acknowledgement
+#' 
+#' Dr. Chester Ismay <br><br><br> <a href="http://github.com/ismayc"><i class="fa fa-github fa-fw"></i>&nbsp; ismayc</a><br> <a href="http://twitter.com/old_man_chester"> <i class="fa fa-twitter fa-fw"></i>&nbsp; @old_man_chester</a><br><br>
+#'   
+#' .footer[Slides available at http://bit.ly/ness-infer &emsp; &emsp; &emsp; ]
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[[Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' class: normal, center, middle
+#' 
+#' ## \#rstats
+#' 
+#' <img src="img/twitter.jpg" style="width: 40%; center" />
+#' 
+#' ---
+#' 
+#' class: normal, center, middle
+#' 
+#' ## R4DS learning community 
+#' 
+#' <img src="img/r4ds.png" style="center" />
+#' 
+#' https://www.rfordatasci.com/
+#' 
+#' ---
+#' 
+#' class: normal, center
+#' name: tour
+#' 
+#' # A tour of RStudio
+#' 
+#' ---
+#' 
+#' ## Designed for the novice / Nice for the practioner
+#' 
+#' `r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/engine.png", 600)`
+#' 
+#' ---
+#' 
+#' ## Designed for the novice / Nice for the practioner
+#' 
+#' `r gif_link("http://moderndive.netlify.com/2-getting-started.html", "img/appstore.png", 620)`
+#' 
+#' ---
+#' 
+#' class: normal, center, middle
+#' GO TO RSTUDIO
+#' 
+#' ---
+#' 
+#' ## Prior Installation
+#' 
+#' Make sure you have the (current) up-to-date R, RStudio, and R packages
+#' - [Beginner's Guide](http://moderndive.com/2-getting-started.html) on ModernDive.com
+#' 
+#' ***
+#' 
+#' - [R (version 3.6.0)](https://cran.r-project.org/)
+#' - [RStudio (version 1.2.1335)](https://www.rstudio.com/products/rstudio/download3/)
+#' 
+#' - Run this in the RStudio Console
+#' 
+
+#' 
+#' ---
+#' 
+#' ## R for Data Science
+#' 
+#' <img src="img/r4ds_book_cover.png" style="width: 40%; float: right" />
+#' 
+#' - http://r4ds.had.co.nz/
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' .footer[[Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' name: getting_started
+#' 
+#' # Getting started with R
+#' 
+#' ---
+#' 
+#' class: normal, center, middle
+#' 
+#' # R Data Types
+#' 
+#' ---
+#' 
+#' ## The bare minimum needed for understanding today
+#' 
+#' Vector/variable
+#'   - Type of vector (`int`, `num` or `dbl`, `chr`, `lgl`, `date`)
+#' 
+#' --
+#' 
+#' Data frame
+#'   - Vectors of (potentially) different types
+#'   - Each vector has the same number of rows
+#' 
+#' ---
+#' 
+#' ## The bare minimum needed for understanding today
+#' 
+
+#' 
+#' --
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+library(tibble)
+library(lubridate)
+ex1 <- data_frame(
+    vec1 = c(1980, 1990, 2000, 2010),
+    vec2 = c(1L, 2L, 3L, 4L),
+    vec3 = c("low", "low", "high", "high"),
+    vec4 = c(TRUE, FALSE, FALSE, FALSE),
+    vec5 = ymd(c("2017-05-23", "1776/7/04", "1983-5/31", "1908/04-1"))
+  )
+ex1
+
+#'   
+#' ---
+#' 
+#' class: center, middle  
+#'   
+#' # Welcome to the [tidyverse](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/)!
+#'   
+#' The `tidyverse` is a collection of R packages that share common philosophies and are designed to work together. <br><br> 
+#'   
+#' <a href="http://tidyverse.tidyverse.org/logo.png"><img src="figure/tidyverse.png" style="width: 200px;"/></a>
+#' 
+#' ---
+#' 
+#' # First motivating example for today
+#' 
+#' <a href="http://gitsense.github.io/images/wealth.gif"><img src="figure/wealth.gif" style="width: 700px;"/></a>
+#' 
+#' - Inspired by the late, great Hans Rosling
+#'   - https://www.youtube.com/watch?v=jbkSRLYSojo
+#' 
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: wrangling
+#' 
+#' # Data Wrangling
+#' 
+#' `r gif_link("https://dplyr.tidyverse.org", "img/dplyr_hex.png", 400)`
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[[Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' ## The [`gapminder` package](https://github.com/jennybc/gapminder)
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+library(gapminder)
+gapminder
+
+#' 
+#' 
+#' ---
+#' 
+#' ## Base R versus the `tidyverse`
+#' 
+#' - The mean life expectancy across all years for Asia
+#' --
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+# Base R
+asia <- gapminder[gapminder$continent == "Asia", ]
+mean(asia$lifeExp)
+
+#' --
+#'  
+
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+library(dplyr)
+gapminder %>% filter(continent == "Asia") %>%
+  summarize(mean_exp = as.numeric(format(mean(lifeExp), digits = 5))) %>% 
+  pull()
+
+#' 
+#' 
+#' ---
+#' 
+#' ## The pipe `%>%`
+#' 
+#' <img src="figure/pipe.png" style="width: 240px;"/> &emsp; &emsp; &emsp; <img src="figure/MagrittePipe.jpg" style="width: 300px;"/>
+#' --
+#' 
+#' - A way to chain together commands
+#' - Can be read as "and then" when reading over code
+#' --
+#' 
+
+#' 
+#' ---
+#' 
+#' name: fivemv
+#' 
+#' # [The Five Main Verbs (5MV)](http://moderndive.com/5-wrangling.html) of data wrangling
+#' 
+#' - [`filter()`](#filter) 
+#' - [`summarize()`](#summarize)
+#' - [`group_by()`](#groupby)
+#' - [`mutate()`](#mutate) 
+#' - [`arrange()`](#arrange)
+#' 
+#' ---
+#' 
+#' name: filter
+#' 
+#' ## `filter()`
+#' 
+#' - Select a subset of the rows of a data frame. 
+#' 
+#' - Arguments are "filters" that you'd like to apply.
+#' --
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+library(gapminder); library(dplyr)
+gap_2007 <- gapminder %>% filter(year == 2007)
+head(gap_2007, 4)
+
+#' 
+#' - Use `==` to compare a variable to a value
+#' 
+#' ---
+#' 
+#' ## Logical operators
+#' 
+#' - Use `|` to check for any in multiple filters being true:
+#' --
+#' 
+
+#' --
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+set.seed(2018)
+gapminder %>% 
+  filter(year == 2002 | continent == "Asia") %>% 
+  sample_n(8)
+
+#' 
+#' ---
+#' 
+#' ## Logical operators
+#' 
+#' - Use `,` to check for all of multiple filters being true:
+#' --
+#' 
+
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+gapminder %>% 
+  filter(year == 2002, continent == "Asia") %>% 
+  head(8)
+
+#' 
+#' ---
+#' 
+#' ## Logical operators
+#' 
+#' - Use `%in%` to check for any being true <br> (shortcut to using `|` repeatedly with `==`)
+#' --
+#' 
+
+#' --
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+gapminder %>% 
+  filter(country %in% c("Argentina", "Belgium", "Mexico"),
+         year %in% c(1987, 1992))
+
+#' 
+#' 
+#' ---
+#' 
+#' name: summarize
+#' 
+#' ## `summarize()`
+#' 
+#' - Any numerical summary that you want to apply to a column of a data frame is specified within `summarize()`.
+#' 
+
+#' --
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+stats_1997 <- gapminder %>% 
+  filter(year == 1997) %>% 
+  summarize(max_exp = max(lifeExp),
+            sd_exp = sd(lifeExp))
+stats_1997
+
+#' 
+#' ---
+#' 
+#' name: groupby
+#' 
+#' ### Combining `summarize()` with `group_by()`
+#' 
+#' When you'd like to determine a numerical summary for all
+#' levels of a different categorical variable
+#' 
+
+#' 
+#' --
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+max_exp_1997_by_cont <- gapminder %>% 
+  filter(year == 1997) %>% 
+  group_by(continent) %>%
+  summarize(max_exp = max(lifeExp),
+            sd_exp = sd(lifeExp))
+max_exp_1997_by_cont
+
+#' 
+#' ---
+#' 
+#' name: mutate
+#' 
+#' ## `mutate()`
+#' 
+#' - Allows you to 
+#'     1. <font color="yellow">create a new variable with a specific value</font> OR
+#'     2. create a new variable based on other variables OR
+#'     3. change the contents of an existing variable
+#' 
+#' --
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+gap_plus <- gapminder %>% mutate(just_one = 1)
+head(gap_plus, 4)
+
+#' 
+#' ---
+#' 
+#' ## `mutate()`
+#' 
+#' - Allows you to 
+#'     1. create a new variable with a specific value OR
+#'     2. <font color="yellow">create a new variable based on other variables</font> OR
+#'     3. change the contents of an existing variable
+#' 
+#' --
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+set.seed(2)
+
+#' 
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+gap_w_gdp <- gapminder %>% mutate(gdp = pop * gdpPercap)
+sample_n(gap_w_gdp, 4)
+
+#' 
+#' ---
+#' 
+#' ## `mutate()`
+#' 
+#' - Allows you to 
+#'     1. create a new variable with a specific value OR
+#'     2. create a new variable based on other variables OR
+#'     3. <font color="yellow">change the contents of an existing variable</font>
+#' 
+#' --
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+gap_weird <- gapminder %>% mutate(pop = pop + 1000)
+head(gap_weird, 4)
+
+#' 
+#' ---
+#' 
+#' name: arrange
+#' 
+#' ## `arrange()`
+#' 
+#' - Reorders the rows in a data frame based on the values of one or more variables
+#' --
+#' 
+## ---- purl=TRUE----------------------------------------------------------
+gapminder %>% arrange(year, country) %>% head(10)
+
+#' 
+#' ---
+#' 
+#' ## `arrange()`
+#' 
+#' - Can also put into descending order
+#' --
+#' 
+## ----desc, purl=TRUE-----------------------------------------------------
+gapminder %>%
+  filter(year > 2000) %>%
+  arrange(desc(lifeExp)) %>%
+  head(10)
+
+#' 
+#' ---
+#' 
+#' ## Don't mix up `arrange` and `group_by`
+#' 
+#' - `group_by` is used (mostly) with `summarize` to calculate summaries over groups
+#' 
+#' - `arrange` is used for sorting
+#' 
+#' ---
+#' 
+#' ## Don't mix up `arrange` and `group_by`
+#' 
+#' This doesn't really do anything useful
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+gapminder %>% group_by(year)
+
+#' 
+#' ---
+#' 
+#' ## Don't mix up `arrange` and `group_by`
+#' 
+#' But this does
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+gapminder %>% arrange(year)
+
+#' 
+#' ---
+#' 
+#' ## Practice
+#' 
+#' Use the [5MV](#fivemv) to answer problems from R data packages, e.g., [`nycflights13::weather`] 
+#' 
+#' <!--
+#' Lay out what the resulting table should look like on paper first.
+#' -->
+#' 
+#' 1. What is the maximum arrival delay for each carrier departing JFK? [`nycflights13::flights`]
+#' 
+#' 2. Which carrier has the worst delays (mean arrival delay)?
+#' 
+#' 3. What airline corresponds to the "F9" carrier code? 
+#' Use [`nycflights13::airlines`]
+#' 
+#' ---
+#' 
+#' ## Challenge
+#' 
+#' What is the following code doing?
+#' 
+## ---- eval = FALSE-------------------------------------------------------
+## flights %>%
+##   select(year:day, ends_with("delay")) %>%
+##   group_by(year, month, day) %>%
+##   filter(rank(desc(arr_delay)) < 10)
+
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: tidying
+#' 
+#' # Data Tidying
+#' 
+#' `r gif_link("https://tidyr.tidyverse.org", "img/tidyr_hex.png", 380)`
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[[Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' # Tidy Data?
+#' 
+#' <img src="http://garrettgman.github.io/images/tidy-1.png" alt="Drawing" style="width: 750px;"/>
+#' <br>
+#' .right.small[https://r4ds.had.co.nz/tidy-data.html] 
+#' 1. Each variable forms a column.
+#' 2. Each observation forms a row.
+#' 3. Each type of observational unit forms a table.
+#' 
+#' The third point means we don't mix apples and oranges.
+#' 
+#' ---
+#' 
+#' ## What is Tidy Data?
+#' 
+#' 1. Each observation forms a row. In other words, each row corresponds to a single instance of an <u>observational unit</u>
+#' 1. Each variable forms a column:
+#'     + Some variables may be used to identify the <u>observational units</u>. 
+#'     + For organizational purposes, it's generally better to put these in the left-hand columns
+#' 1. Each type of observational unit forms a table.
+#' 
+#' ---
+#' 
+#' ## Differentiating between <u>neat</u> data and <u>tidy</u> data
+#' 
+#' - Colloquially, they mean the same thing
+#' - But in our context, one is a subset of the other. 
+#' 
+#' <br>
+#' 
+#' <u>Neat</u> data is 
+#'   - easy to look at, 
+#'   - organized nicely, and 
+#'   - in table form.
+#' 
+#' --
+#' 
+#' <u>Tidy</u> data is neat but also abides by a set of three rules.
+#' 
+#' ---
+#' 
+#' Consider these representations of the __same__ data
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+table1
+
+table2
+
+#' 
+#' ---
+#' 
+#' What if you wanted to plot cases v. year?
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+table1
+
+table2
+
+#' 
+#' ---
+#' 
+#' ## A solution
+#' 
+## ----purl=TRUE, fig.align='center'---------------------------------------
+library(ggplot2)
+ggplot(table1, aes(year, cases)) + 
+  geom_line(aes(group = country), colour = "grey50") + 
+  geom_point(aes(colour = country))
+
+#' 
+#' ---
+#' 
+#' ## Other useful examples
+#' 
+#' Compute rate per 10,000
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+table1 %>% 
+  mutate(rate = cases / population * 10000)
+
+#' 
+#' ---
+#' 
+#' ## Other useful examples
+#' 
+#' Compute cases per year
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+table1 %>% 
+  count(year, wt = cases)
+
+#' 
+#' ---
+#' 
+#' ## Two common problems:
+#' 
+#' - One variable might be spread across multiple columns.
+#' 
+#' - One observation might be scattered across multiple rows.
+#' 
+#' ---
+#' 
+#' ## Variable spread across multiple columns
+#' 
+#' A common problem is a dataset where some of the column names are not names of variables, but values of a variable. 
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+table4a
+
+#' 
+#' --
+#' 
+#' Introducing `gather()`
+#' 
+#' ---
+#' 
+#' ## `gather()` columns into a new pair of variables
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+table4a
+
+#' 
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+table4a %>% 
+  gather(`1999`, `2000`, key = "year", value = "cases")
+
+#' 
+#' ---
+#' 
+#' ## What happened
+#' 
+#' <img src="img/tidy-gather.png" style="width: 750px;" />
+#' <br>
+#' .right.small[https://r4ds.had.co.nz/tidy-data.html] 
+#' 
+#' ---
+#' 
+#' ## An observation is scattered across multiple rows
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+table2
+
+#' 
+#' --
+#' 
+#' Introducing `spread()`
+#' 
+#' ---
+#' 
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+table2
+
+#' 
+#' We need two parameters:
+#' 
+#' - The column that contains variable names, the key column. Here, it’s type.
+#' 
+#' - The column that contains values from multiple variables, the value column. Here it’s count.
+#' 
+#' ---
+#' 
+#' ## `spread()` columns into new variables
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+table2 %>%
+    spread(key = type, value = count)
+
+#' 
+#' ---
+#' 
+#' ## What happened?
+#' 
+#' <img src="img/tidy-spread.png" style="width: 750px;" />
+#' .right.small[https://r4ds.had.co.nz/tidy-data.html]
+#' ---
+#' 
+#' ## Is this tidy?
+#' 
+## ----echo=FALSE, message=FALSE, warning=FALSE, purl=TRUE-----------------
+library(fivethirtyeight)
+set.seed(2)
+bechdel %>% sample_n(12) %>%
+  select(year, title, clean_test, budget_2013) %>%
+  arrange(title)
+
+#' 
+#' 
+#' ---
+#' 
+#' name: demscore
+#' 
+#' ## How about this? Is this tidy?
+#' 
+## ----echo=FALSE, message=FALSE, warning=FALSE, purl=TRUE-----------------
+dem_score <- read_csv("https://raw.githubusercontent.com/ismayc/talks/master/ness-infer/data/dem_score.csv")
+dem_score %>% slice(1:12)
+
+#' 
+#' ---
+#' 
+#' name: whytidy
+#' 
+#' ## Why is tidy data important?
+#' 
+#' - Think about trying to plot democracy score across years in the simplest way possible with the data on the [previous slide](#demscore).
+#' --
+#' 
+#' - It would be much easier if the data looked like what follows instead so we could put 
+#'     - `year` on the `x`-axis and 
+#'     - `dem_score` on the `y`-axis.
+#' 
+#' ---
+#' 
+#' ## Tidy is good
+#' 
+
+#' --
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+library(tidyr)
+dem_score_tidy <- dem_score %>% 
+  gather(-country, key = "year", value = "dem_score") %>% 
+  mutate(year = as.integer(year)) 
+dem_score_tidy %>% sample_n(10) %>% arrange(country)
+
+#' 
+#' ---
+#' 
+#' ## Let's plot it
+#' 
+#' - Plot the line graph for 4 countries using `ggplot`
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+dem_score4 <- dem_score_tidy %>%
+  filter(country %in% c("Australia", "Pakistan", "Portugal", "Uruguay"))
+ggplot(data = dem_score4, mapping = aes(x = year, y = dem_score)) +
+  geom_line(mapping = aes(color = country), size = 2)
+
+#' 
+#' ---
+#' 
+#' ## Beginning steps
+#' 
+#' Frequently the first thing to do when given a dataset is to
+#' 
+#' - check that the data is <u>tidy</u> (if not, convert it!)
+#' - identify the observational unit,
+#' - specify the variables, and
+#' - give the types of variables you are presented with.
+#' 
+#' This will help with 
+#' 
+#' - choosing the appropriate plot, 
+#' - summarizing the data, and 
+#' - understanding which inferences can be applied.
+#' 
+#' ---
+#' 
+#' ## Exercise
+#' 
+#' Is this tidy? How would you make it tidy?
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+preg <- tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+preg
+
+#' 
+#' ---
+#' 
+## ----echo=FALSE, purl=TRUE-----------------------------------------------
+preg <- tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+preg
+
+#' 
+#' --
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+gather(preg, sex, count, male, female) %>%
+  mutate(pregnant = pregnant == "yes",
+         female = sex == "female") %>%
+  select(-sex)
+
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: center, middle
+#' name: eda
+#' 
+#' # Exploratory data analysis
+#' 
+#' ---
+#' 
+#' layout: true
+#' class: inverse
+#' 
+#' .footer[[Return to Table of Contents](#toc)]
+#' 
+#' ---
+#' 
+#' ## The `ggplots::diamonds` dataset
+#' 
+## ----purl=TRUE-----------------------------------------------------------
+library(tidyverse)
+diamonds
+
+#' 
+#' ---
+#' 
+#' ## First steps
+#' - What is the structure of the data?
+#' - Is there a data dictionary?
+#' - Visualise distributions
+#'     + Categorical variables
+#'     + Continuous variable
+#'     + Create a dataframe `smaller` containing only those diamonds that are less than 3 carats
+#'     + Explore distribution of `cut` using `geom_freqpoly` on the `smaller` dataframe
+#' 
+#' ---
+#' 
+#' ## Are there any unusual patterns?
+#' 
+#' - What might explain them?
+#' - Can you see evidence of outliers? 
+#' 
+#' ---
+#' 
+#' ## Exercise
+#' 
+#' - Explore the distributions of the variables `x`, `y` and `z`.
+#' - Do you see anything unusual?
+#' 
+#' ---
+#' 
+#' ## Covariation
+#' 
+#' - Distributions describe the variation _within_ a variable
+#' - Covariation describes the variation _between_ variables
+#' - Try creating boxplots for `price` v. `cut`
+#' - Try for `hwy` mileage v. vehicle `class` in the `mpg` dataset
+#' 
+#' ---
+#' 
+#' ## `price` versus `cut`
+#' 
+#' --
+#' 
+## ----purl=TRUE, fig.height=5---------------------------------------------
+ggplot(diamonds, aes(cut, price)) +
+  geom_boxplot()
+
+#' 
+#' ---
+#' 
+#' ## `hwy` versus `class`
+#' 
+## ----purl=TRUE, fig.height=5---------------------------------------------
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot()
+
+#' 
+#' ---
+#' 
+#' ## `hwy` versus `class`
+#' 
+## ----purl=TRUE, fig.height=5---------------------------------------------
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot() +
+  coord_flip()
+
+#' 
+#' ---
+#' 
+#' ## The previous slides explored covariation between a categorical variable and a continuous variable. 
+#' 
+#' - What if you have two categorical variables?
+#' - For example, `color` and `cut`?
+#' 
+#' ---
+#' 
+#' ## `geom_tile`
+#' 
+## ----purl=TRUE, fig.height=5---------------------------------------------
+diamonds %>% 
+  count(color, cut) %>% 
+  ggplot(aes(color, cut)) +
+  geom_tile(mapping = aes(fill = n))
+
+
+#' 
+#' ---
+#' 
+#' ## What if you have two continuous variables?
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: inverse, center, middle
+#' 
+#' # Thank you!
+#' 
+#' ---
+#' 
+#' layout: false
+#' class: inverse, middle
+#' 
+#' .center.large[Thanks for attending!]
+#' <br>
+#' Contact me: 
+#' - jonathan.leslie@pivigo.com
+#' - https://twitter.com/jlesliedata
+#' <br><br>
+#' 
+#' Special thanks to Chester Ismay 
+#' - https://twitter.com/old_man_chester
+#' - Slides' source code at <https://github.com/ismayc/talks/>
+#' <br><br>
+#' - Slides created via the R package [xaringan](https://github.com/yihui/xaringan) by Yihui Xie
